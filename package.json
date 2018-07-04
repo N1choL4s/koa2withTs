@@ -1,0 +1,33 @@
+{
+  "name": "koa-ts",
+  "version": "1.0.0",
+  "description": "koa typescript",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc && node dist/server.js",
+    "watch-server": "nodemon --inspect --watch 'src/**/*' -e ts,tsx --exec 'node -r ts-node/register' ./src/server.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/N1choL4s/koa2withTs.git"
+  },
+  "author": "Jay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/N1choL4s/koa2withTs/issues"
+  },
+  "homepage": "https://github.com/N1choL4s/koa2withTs#readme",
+  "dependencies": {
+    "koa": "^2.5.1",
+    "koa-router": "^7.4.0"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.0.46",
+    "@types/koa-router": "^7.0.30",
+    "@types/node": "^10.5.1",
+    "nodemon": "^1.17.5",
+    "ts-node": "^7.0.0",
+    "typescript": "^2.9.2"
+  }
+}
