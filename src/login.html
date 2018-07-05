@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <input type="text" name="phone" id="phone">
+    <input type="text" name="loginpass" id="loginpass">
+    <input type="text" name="code" id="code">
+    <a onclick="showImgCode();"><img src="http://39.106.35.106:8082/api/imgcode.jsp?rnd=0.7731311735799533" id="imgCode"></a>
+    <input type="submit" onclick="login()" value="登录">
+<script src="http://code.jquery.com/jquery-1.4.1.min.js"></script>
+<script>
+    function showImgCode(){
+        document.getElementById('imgCode').setAttribute('src','http://39.106.35.106:8082/api/imgcode.jsp?rnd='+Math.random());
+    }
+
+    function login() {
+        var data = {
+            phone: $('#phone').val(),
+            loginpass: $('#loginpass').val(),
+            code: $('#code').val()
+        };
+        $.ajax({
+            url: 'http://localhost:3000/login',
+            type: 'POST',
+            data: data,
+            success: function (data) {
+                console.log(data);
+            }
+        })
+    }
+</script>
+</body>
+</html>
