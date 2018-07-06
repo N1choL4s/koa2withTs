@@ -8,12 +8,12 @@
     <input type="text" name="phone" id="phone">
     <input type="text" name="loginpass" id="loginpass">
     <input type="text" name="code" id="code">
-    <a onclick="showImgCode();"><img src="http://39.106.35.106:8082/api/imgcode.jsp?rnd=0.7731311735799533" id="imgCode"></a>
+    <a onclick="showImgCode();"><img src="http://localhost:3000/imgCode?rnd=0.7731311735799533" id="imgCode"></a>
     <input type="submit" onclick="login()" value="登录">
 <script src="http://code.jquery.com/jquery-1.4.1.min.js"></script>
 <script>
     function showImgCode(){
-        document.getElementById('imgCode').setAttribute('src','http://39.106.35.106:8082/api/imgcode.jsp?rnd='+Math.random());
+        document.getElementById('imgCode').setAttribute('src','http://localhost:3000/imgCode?rnd='+Math.random());
     }
 
     function login() {
@@ -24,7 +24,7 @@
         };
         $.ajax({
             url: 'http://localhost:3000/login',
-            type: 'POST',
+            type: 'post',
             data: data,
             success: function (data) {
                 console.log(data);
