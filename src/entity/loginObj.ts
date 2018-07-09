@@ -1,6 +1,6 @@
 class loginObj {
     constructor(
-        public phone: string,
+        public loginName: string,
         public loginpass: string,
         public code: string
     ){}

@@ -2,32 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>login</title>
 </head>
 <body>
-    <input type="text" name="phone" id="phone">
+    <input type="text" name="loginName" id="loginName">
     <input type="text" name="loginpass" id="loginpass">
     <input type="text" name="code" id="code">
-    <a onclick="showImgCode();"><img src="http://localhost:3000/imgCode?rnd=0.7731311735799533" id="imgCode"></a>
+    <a onclick="showImgCode();"><img src="/api/imgCode?rnd=0.7731311735799533" id="imgCode"></a>
     <input type="submit" onclick="login()" value="登录">
 <script src="http://code.jquery.com/jquery-1.4.1.min.js"></script>
 <script>
     function showImgCode(){
-        document.getElementById('imgCode').setAttribute('src','http://localhost:3000/imgCode?rnd='+Math.random());
+        document.getElementById('imgCode').setAttribute('src','/api/imgCode?rnd='+Math.random());
     }
 
     function login() {
         var data = {
-            phone: $('#phone').val(),
+            loginName: $('#loginName').val(),
             loginpass: $('#loginpass').val(),
             code: $('#code').val()
         };
         $.ajax({
-            url: 'http://localhost:3000/login',
+            url: '/api/login',
             type: 'post',
             data: data,
-            success: function (data) {
-                console.log(data);
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function (res) {
+                    alert(res);
             }
         })
     }
