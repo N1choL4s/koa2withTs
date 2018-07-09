@@ -1,11 +1,12 @@
 const request = require('superagent');
 const events = require('events')
 import { loginObj } from "../entity/loginObj";
-import { httpHeaders } from '../config/httpConfig'
-
-var httpConfig: object;
 
 export class userController {
+
+    constructor(
+        protected _serverCookie: string
+    ){}
 
     // login
     static async login (ctx: any, next: any) {
@@ -15,10 +16,10 @@ export class userController {
             ctx.request.body.code
         );
         console.log(postLoginData)
-        console.log(httpConfig.serverCookie)
+        console.log(this._serverCookie)
         let res = await request
             .post('http://localhost:8086/manage/bms/user/login')
-            .set('Cookie', httpConfig.serverCookie)
+            .set('Cookie', httpConfig._serverCookie)
             .type('form')
             .send(postLoginData)
             .withCredentials();
@@ -30,8 +31,8 @@ export class userController {
 
     // verifyCodeImage
     static async verifyCodeImage(ctx: any, next: any) {
-        httpConfig = new httpHeaders(ctx.request.headers.cookies);
-        console.log(httpConfig.serverCookie);
+        this._serverCookie = ctx.request.headers.cookies;
+        console.log(this._serverCookie);
         let res = await request
             .get('http://localhost:8086/manage/bms/user/sendCaptcha?rnd=' + Math.random());
         if(res){
