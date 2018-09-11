@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>零宽断言</title>
+</head>
+<script>
+    //零宽度正回顾后发断言 零宽度正预测
+    //var reg = /(?<=<div>)(.|\n|\r)*/;
+    //var reg = /(?<=<div[^>]*>).*(?=<\/div>)/;
+    var reg = /(<div[^>]*>[^<]*<\/div>)/;
+    var str = "import * as React from 'react';\n" +
+        "\n" +
+        "interface Instate {\n" +
+        "    width: string;\n" +
+        "    height: string;\n" +
+        "    backgroundColor: string;\n" +
+        "}\n" +
+        "\n" +
+        "class MatrixBox extends React.Component<any, Instate> {\n" +
+        "\n" +
+        "    public state: Instate;\n" +
+        "\n" +
+        "    constructor(props: any) {\n" +
+        "        super(props);\n" +
+        "        this.state = {\n" +
+        "            backgroundColor: props.backgroundColor,\n" +
+        "            height: props.height,\n" +
+        "            width: props.width\n" +
+        "        }\n" +
+        "    }\n" +
+        "\n" +
+        "    public componentWillMount() {\n" +
+        "        this.customResize();\n" +
+        "    }\n" +
+        "\n" +
+        "    public componentDidMount(){\n" +
+        "        window.addEventListener('resize', ()=>this.customResize());\n" +
+        "    }\n" +
+        "\n" +
+        "    public componentWillUnmount() {\n" +
+        "        window.removeEventListener('resize', () => this.customResize());\n" +
+        "    }\n" +
+        "\n" +
+        "    public customResize(){\n" +
+        "        let { width, height, backgroundColor } = this.props;\n" +
+        "        width = window.innerWidth;\n" +
+        "        height = window.innerHeight;\n" +
+        "        backgroundColor = 'pink';\n" +
+        "        this.setState({width, height, backgroundColor});\n" +
+        "    }\n" +
+        "\n" +
+        "    public render() {\n" +
+        "        return (\n" +
+        "            <div\n" +
+        "                style={{\n" +
+        "                    backgroundColor: this.state.backgroundColor,\n" +
+        "                    height: this.state.height,\n" +
+        "                    width: this.state.width,\n" +
+        "                }}\n" +
+        "            >\n" +
+        "                Matrix\n" +
+        "            </div>\n" +
+        "        );\n" +
+        "    }\n" +
+        "}\n" +
+        "\n" +
+        "export default MatrixBox;\n" +
+        "import * as React from 'react';\n" +
+        "\n" +
+        "interface Instate {\n" +
+        "    width: string;\n" +
+        "    height: string;\n" +
+        "    backgroundColor: string;\n" +
+        "}\n" +
+        "\n" +
+        "class MatrixBox extends React.Component<any, Instate> {\n" +
+        "\n" +
+        "    public state: Instate;\n" +
+        "\n" +
+        "    constructor(props: any) {\n" +
+        "        super(props);\n" +
+        "        this.state = {\n" +
+        "            backgroundColor: props.backgroundColor,\n" +
+        "            height: props.height,\n" +
+        "            width: props.width\n" +
+        "        }\n" +
+        "    }\n" +
+        "\n" +
+        "    public componentWillMount() {\n" +
+        "        this.customResize();\n" +
+        "    }\n" +
+        "\n" +
+        "    public componentDidMount(){\n" +
+        "        window.addEventListener('resize', ()=>this.customResize());\n" +
+        "    }\n" +
+        "\n" +
+        "    public componentWillUnmount() {\n" +
+        "        window.removeEventListener('resize', () => this.customResize());\n" +
+        "    }\n" +
+        "\n" +
+        "    public customResize(){\n" +
+        "        let { width, height, backgroundColor } = this.props;\n" +
+        "        width = window.innerWidth;\n" +
+        "        height = window.innerHeight;\n" +
+        "        backgroundColor = 'pink';\n" +
+        "        this.setState({width, height, backgroundColor});\n" +
+        "    }\n" +
+        "\n" +
+        "    public render() {\n" +
+        "        return (\n" +
+        "            <div\n" +
+        "                style={{\n" +
+        "                    backgroundColor: this.state.backgroundColor,\n" +
+        "                    height: this.state.height,\n" +
+        "                    width: this.state.width,\n" +
+        "                }}\n" +
+        "            >\n" +
+        "                Matrix\n" +
+        "            </div>\n" +
+        "        );\n" +
+        "    }\n" +
+        "}\n" +
+        "\n" +
+        "export default MatrixBox;";
+    //console.log(str.replace(reg, 'test\n'));
+    console.log(str.match(reg));
+    var testStr = str.match(reg)[0];
+    console.log(testStr.match(/(.|\n)+(?=<\/div>)/));
+    console.log(testStr.match(/(?!<div[^>]*>)[^>]*/));
+    console.log(testStr.replace(/\w+(?=<\/div>)/, 'test1'));
+</script>
+<body>
+
+</body>
+</html>
